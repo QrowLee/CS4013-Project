@@ -84,6 +84,20 @@ public class commandline
          }
          else if (command.equals("Area pay statistics"))
          {  
+		 System.out.println("code");
+           String areaCode = in.nextLine();
+           System.out.println(areaCode);
+           /*
+           for (int i = 0; i < propertyList.size(); i++) {
+               Property check = propertyList.get(i);
+                System.out.println(check);
+            */
+            for(Property p : propertyList){
+                if(machine.postcode.equals(property.substring(0,3))){
+                    System.out.println(machine.payments);
+                    System.out.println("got here");
+                }
+            }
             
          }
          else if (command.equals("test tax changes"))

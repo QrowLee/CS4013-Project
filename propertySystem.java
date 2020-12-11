@@ -6,6 +6,7 @@ public class propertySystem
     private int x;
     ArrayList<property3> propertyList = new ArrayList<property3>();
     LocalDate myObj = LocalDate.now();
+    propertyTax def = new propertyTax();
     public propertySystem()
     {
     }
@@ -43,5 +44,39 @@ public class propertySystem
         double estMarketVal = Double.parseDouble(emv);
         property3 prop = new property3(add, post, estMarketVal, loc, pr, owner);
         propertyList.add(prop);
+    }
+    public void propertyPayments(String property){
+    for (property3 p : propertyList){
+    if ((p.address.equals(property)) || (p.postcode.equals(property))){
+    System.out.println(p.payments);
+    }
+    }
+    }
+    public void ownerPayments(String owner){
+    for (property3 p : propertyList){
+    if (p.owners.contains(owner)){
+    System.out.println(p.payments);
+    }
+    }
+    }
+    public void areaPayStatistics(String code){
+    for (property3 p : propertyList){
+    if(code.equals((p.postcode).substring(0,3))){
+                    System.out.println(p.payments);
+                    System.out.println("got here");
+    }
+    }
+    }
+    public void testTaxChange(double tax, double rate,double locationTax,double notPrinciple,double penalty){
+    propertyTax temp = new propertyTax(tax,rate,locationTax,notPrinciple,penalty);
+    }
+    public void overDuePayments(){
+    for (property3 p : propertyList){
+    if (p.lastPayment.getYear() < myObj.getYear()){
+    for (Payment2 q : p.duePayments){
+    System.out.println(q.toString());
+    }
+    }
+    }
     }
 }

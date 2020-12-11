@@ -3,6 +3,7 @@
 import java.util.Scanner;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.time.LocalDate;
 /**
    A menu from the vending machine.
 */
@@ -38,67 +39,45 @@ public class commandline2
            break;
            case "add property":
            System.out.println("Enter Address, Postcode, Estimated Market Value, Location, Private Residence(yes/no) and owner(s)");
-           String payment = in.nextLine();
-           machine.addProperty(); 
+           String property = in.nextLine();
+           machine.addProperty(property);
            break;
            case "my payments":
-           for(Property p : propertyList){
-                if(p.owners.toString().equals(name)){
-                    System.out.println(p.payments.toString());
-                }else {
-                    System.out.println("could not find address");
-                }
-            }  
+           if (loggedIn){
+           machine.ownerPayments(name);
+           }
+           else{System.out.println("please log in to view payments");}
            break;
            case "property payments":
            System.out.println("enter address or postcode");
-           String property = in.nextLine();
-           System.out.println(property);
-           /*
-           for (int i = 0; i < propertyList.size(); i++) {
-               Property check = propertyList.get(i);
-                System.out.println(check);
-            */
-            //for(Property p : machine){
-                if((machine.address.equals(property)) || (machine.postcode.equals(property))){
-                    System.out.println(machine.payments);
-                    System.out.println("got here");
-                }
-            //}
-           //}
+           String Property = in.nextLine();
+           System.out.println(Property);
+           machine.propertyPayments(Property);
            break;
            case "owner payments":
            System.out.println("enter address or postcode");
            String owners = in.nextLine();  
-            for(Property p : propertyList){
-                if(p.owners.toString().equals(owners)){
-                    System.out.println(p.payments.toString());
-                }else {
-                    System.out.println("could not find address");
-                }
-            }
-            
+           machine.ownerPayments(owners);
            break;
            case "overdue payments":
            break;
            case "Area Pay Statistics":
-           System.out.println("code");
+           System.out.println("areaCode");
            String areaCode = in.nextLine();
            System.out.println(areaCode);
-           /*
-           for (int i = 0; i < propertyList.size(); i++) {
-               Property check = propertyList.get(i);
-                System.out.println(check);
-            */
-            for(Property p : propertyList){
-                if(machine.postcode.equals(property.substring(0,3))){
-                    System.out.println(machine.payments);
-                    System.out.println("got here");
-                }
-            }
-           //}
+           machine.areaPayStatistics(areaCode);
            break;
            case "Test Tax Change":
+           System.out.println("Do you wish to test a propert tax change yes/no");
+           String answer = in.nextLine();
+           if (answer.equals("yes")){
+            
+            
+            
+           }
+           else{System.out.println("cancelling test tax change");
+            break;}
+           System.out.println("please enter new values for property tax System as they appear. if you do not wish to change the value leave it blank");
            break;
            case "help":
            System.out.println("figure it out");
@@ -108,6 +87,14 @@ public class commandline2
            name = in.nextLine();
            break;
            case "Set Date":
+           LocalDate date = LocalDate.parse(in.nextLine());
+           machine.setDate(date);
+           break;
+           case "get Date":
+           System.out.println(machine.getDate());
+           break;
+           case "increase Year":
+           machine.setDate(machine.getDate().plusYears(1));
            break;
             }
       }
