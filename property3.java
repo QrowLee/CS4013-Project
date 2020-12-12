@@ -68,15 +68,23 @@ public class property3 {
         return privateResidence;
     }
     public ArrayList<Payment2> propertyTax(LocalDate x, propertyTax p) {
-            for (int missedYears = lastPayment.getYear() - x.getYear();missedYears > 0; missedYears++){
-            duePayments.add(p.getTax(missedYears,estMarketVal,location,privateResidence));
+            for (int missedYears = lastPayment.getYear() - x.getYear();missedYears > -1; missedYears++){
+            duePayments.add(p.getTax(missedYears,estMarketVal,location,privateResidence,x));
           }
           return duePayments;
     }
-    public void pay(String owner, double ammount) {
-        payments.add(new Payment2(ammount));
+    public String pay(String owner, double ammount, LocalDate Date, propertyTax p) {
+        if(payments.get(paymentNo++).ammount == ammount){
+        duePayments.remove(payments.get((duePayments.size())-1));
+        payments.add(new Payment2(owner,ammount,false,Date));
         paymentNo++;
         lastPayment = LocalDate.now();
+        lastPayment = Date;
+        return (payments.get((paymentNo)-1).toString() +" payed /n" + payments.get((paymentNo)-1));
+ 
+        }
+
+        return "no due Payments fits this description";
     }
     public String getPropertyTax() {
         String back = "";

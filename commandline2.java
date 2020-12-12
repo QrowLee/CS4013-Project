@@ -33,8 +33,9 @@ public class commandline2
            if(!loggedIn){System.out.println("please log in to make payment");
             break;
             }
-           System.out.println("enter address or postcode and ammount");
-           String payment = in.nextLine();
+           System.out.println("enter address or postcode");
+           String property = in.nextLine();
+           System.out.println("enter number of payments you want to make");
            machine.pay(payment,name);
            break;
            case "add property":
@@ -99,7 +100,7 @@ public class commandline2
             }
       }
    }
-
+   
    private Object getChoice(Object[] choices)
    {
       while (true)

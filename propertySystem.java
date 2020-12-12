@@ -7,6 +7,7 @@ public class propertySystem
     ArrayList<property3> propertyList = new ArrayList<property3>();
     LocalDate myObj = LocalDate.now();
     propertyTax def = new propertyTax();
+    propertyTax temp = new propertyTax();
     public propertySystem()
     {
     }
@@ -20,16 +21,26 @@ public class propertySystem
     public LocalDate getDate(){
     return myObj;
     }
-    public void pay(String payment, String name){
+    public void pay(String property, String name){
+      ArrayList<Payment2> duePayments = property3.propertyTax(myObj,def);
       String[] parts = payment.split(" ");
-      String ammountStr = parts[0];
-      String property = parts[1];
-      double ammount = Double.parseDouble(ammountStr);
       for (property3 p : propertyList){
         if ((p.getAddress()).equals(property)|| (p.getPostcode()).equals(property)){
-        p.pay(name, ammount);
+        ArrayList<Payment2> DuePayments = getDuePayments(property);
         }
         }
+      String ammountStr = parts[0];
+      
+      String property = parts[1];
+      double ammount = Double.parseDouble(ammountStr);
+      
+    }
+    public ArrayList<Payment2> getDuePayments(String property){
+    for (property3 p : propertyList){
+    if ((p.address.equals(property)) || (p.postcode.equals(property))){
+    return p.propertyTax(myObj,def);
+    }
+    }
     }
     public void addProperty(String payment){
         String[] parts = payment.split(" ");
@@ -68,7 +79,7 @@ public class propertySystem
     }
     }
     public void testTaxChange(double tax, double rate,double locationTax,double notPrinciple,double penalty){
-    propertyTax temp = new propertyTax(tax,rate,locationTax,notPrinciple,penalty);
+    temp = new propertyTax(tax,rate,locationTax,notPrinciple,penalty);
     }
     public void overDuePayments(){
     for (property3 p : propertyList){

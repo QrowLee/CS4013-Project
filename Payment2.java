@@ -5,12 +5,14 @@ public class Payment2 {
     String owner;
     LocalDate date;
     boolean due;
-    public Payment2(double ammount) {
-        this.ammount = ammount;
-    }
-    public Payment2(double ammount, boolean due) {
+    public Payment2(double ammount, boolean due, LocalDate date) {
         this.ammount = ammount;
         this.due = due;
+    }
+    public Payment2(String owner, double ammount, boolean due, LocalDate date) {
+        this.ammount = ammount;
+        this.due = due;
+        this.date = date;
     }
     public String toString() {
         return "Payment{" +
